@@ -7,9 +7,9 @@ import { MoviePageProps} from "../types/interfaces";
 import React, {useState, useEffect}  from "react"; // replace existing react import
 import { useParams } from "react-router-dom";
 import { MovieDetailsProps, MovieImage} from "../types/interfaces";//
-import * as dotenv from "dotenv"
+import { getMovie, getMovieImages } from "../api/tmdb-api";
 
-dotenv.config()
+
 
 const styles = {
   imageListRoot: {
@@ -30,27 +30,15 @@ const MoviePage: React.FC = () => {
   const [images, setImages] = useState<MovieImage[]>([]);
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((movie) => {
-        // console.log(movie)
-        setMovie(movie);
-      });
+    getMovie(id ?? "").then((movie) => {
+      setMovie(movie);
+    });
   }, [id]);
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((json) => json.posters)
-      .then((images) => {
-        setImages(images);
-      });
+    getMovieImages(id ?? "").then((images) => {
+      setImages(images);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -11,6 +11,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-};
+  args : {onUserInput: (filter: any, value: string) => {
+    console.log("Filter changed:", filter, value);
+  },
+  titleFilter: '',
+  genreFilter: '',
+}};
 Basic.storyName = "Default";
 

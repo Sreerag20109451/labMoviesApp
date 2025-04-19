@@ -11,9 +11,9 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import * as dotenv from "dotenv"
+import { getGenres } from "../../api/tmdb-api";
 
-dotenv.config()
+
 
 
 const styles = {
@@ -30,33 +30,26 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
+  onUserInput: (f: FilterOption, s: string)  => void; // Add this line
   titleFilter: string;
   genreFilter: string;
 }
 
 
-
-  const FilterMoviesCard: React.FC<FilterMoviesCardProps>= ({titleFilter, genreFilter}) => {
+  const FilterMoviesCard: React.FC<FilterMoviesCardProps>= ({titleFilter, genreFilter,onUserInput}) => {
 
     const [genres, setGenres] = useState([{ id: '0', name: "All" }])
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}`
-    )
-      .then(res => res.json())
-      .then(json => {
-        return json.genres
-      })
-      .then(apiGenres => {
-        setGenres([genres[0], ...apiGenres]);
-      });
+    getGenres().then((allGenres) => {
+      setGenres([genres[0], ...allGenres]);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
     e.preventDefault()
-    // Completed later
+    onUserInput(type, value)
   };
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
