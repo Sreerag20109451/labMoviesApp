@@ -10,14 +10,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
-    args: SampleMovie
+    args: {movie : SampleMovie, selectFavourite:  (id: number) => {
+        console.log("Favourited movie with id:", id);
+      }}
+     
 
 };
 Basic.storyName = "Default";
 
 const sampleNoPoster = { ...SampleMovie, poster_path: undefined };
 export const Exceptional: Story = {
-    args: sampleNoPoster
+    args: {movie : sampleNoPoster, selectFavourite:  (id: number) => {
+        console.log("Favourited movie with id:", id);
+      }}
 
 };
 Exceptional.storyName = "Exception";
