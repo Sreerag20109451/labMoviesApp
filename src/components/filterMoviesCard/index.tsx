@@ -13,7 +13,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import * as dotenv from "dotenv"
 
-dotenv.config()
 
 
 const styles = {

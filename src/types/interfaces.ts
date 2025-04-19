@@ -19,7 +19,8 @@ export interface BaseMovieProps {
   }
 
   export interface BaseMovieListProps { 
-    movies: BaseMovieProps[];
+    movies: BaseMovieProps[],
+    selectFavourite: (id: number) => void
   }     
 
   export interface MovieDetailsProps extends BaseMovieProps {

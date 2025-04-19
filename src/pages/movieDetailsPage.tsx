@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { MovieDetailsProps, MovieImage} from "../types/interfaces";//
 import * as dotenv from "dotenv"
 
-dotenv.config()
 
 const styles = {
   imageListRoot: {
@@ -31,7 +30,7 @@ const MoviePage: React.FC = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`
     )
       .then((res) => {
         return res.json();
@@ -44,7 +43,7 @@ const MoviePage: React.FC = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.API_KEY}`
+      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_API_KEY}`
     )
       .then((res) => res.json())
       .then((json) => json.posters)
