@@ -7,6 +7,7 @@ import MovieListPage from "./pages/homePage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
+import UpcomingMoviesPage from "./pages/upcomingMoviePage";
 
 
 
@@ -23,6 +24,9 @@ const App = () => {
         </li>
       </ul>
       <Routes>
+
+      <Route path="/movies/upcoming" element={<UpcomingMoviesPage/>} />
+
 
       <Route path="/reviews/:id" element={<MovieReviewPage/>} />
         <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />

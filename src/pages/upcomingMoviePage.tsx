@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { BaseMovieProps } from "../types/interfaces";
-import { getMovies } from "../api/tmdb-api";
+import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
@@ -19,7 +20,7 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
-const HomePage: React.FC = () => {
+const UpcomingMoviesPage: React.FC = () => {
   const [movies, setMovies] = useState<BaseMovieProps[]>([]);
   const favourites = movies.filter(m => m.favourite)
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -45,7 +46,7 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    getMovies().then(movies => {
+    getUpcomingMovies().then(movies => {
       setMovies(movies);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,4 +67,4 @@ const HomePage: React.FC = () => {
     </>
   );
 };
-export default HomePage;
+export default UpcomingMoviesPage;
