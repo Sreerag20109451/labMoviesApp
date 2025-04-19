@@ -6,11 +6,14 @@ import MoviePage from "./pages/movieDetailsPage";
 import MovieListPage from "./pages/homePage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
+import SiteHeader from './components/siteHeader'
+
 
 
 const App = () => {
   return (
     <BrowserRouter>
+    <SiteHeader/>
      <ul>
         <li>
           <Link to="/">Home</Link>
@@ -20,6 +23,7 @@ const App = () => {
         </li>
       </ul>
       <Routes>
+
       <Route path="/reviews/:id" element={<MovieReviewPage/>} />
         <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
         <Route path="/movies/:id" element={<MoviePage />} />
