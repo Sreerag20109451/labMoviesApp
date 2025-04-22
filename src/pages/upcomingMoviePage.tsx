@@ -1,15 +1,17 @@
 
 import React, { useState, useEffect } from "react";
 import PageTemplate from '../components/templateMovieListPage';
-import { BaseMovieProps } from "../types/interfaces";
+import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/movieFilterUI";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import Spinner from "../components/spinner";
+
 import PlayListAddIcon from "../components/cardIcons/playlistAddIcon";
+import { useQuery } from "react-query";
 
 const titleFiltering = {
   name: "title",
@@ -22,22 +24,14 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
+
+
 const UpcomingMoviesPage: React.FC = () => {
-  const [movies, setMovies] = useState<BaseMovieProps[]>([]);
-  const favourites = movies.filter(m => m.favourite)
+
+  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming_movies", getUpcomingMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );
-
-  localStorage.setItem('favourites', JSON.stringify(favourites))
-  // New function
-  const addToFavourites = (movieId: number) => {
-    const updatedMovies = movies.map((m: BaseMovieProps) =>
-      m.id === movieId ? { ...m, favourite: true } : m
-    );
-    setMovies(updatedMovies);
-  };
-
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
@@ -47,17 +41,30 @@ const UpcomingMoviesPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
-  useEffect(() => {
-    getUpcomingMovies().then(movies => {
-      setMovies(movies);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const displayedMovies = filterFunction(movies);
-  return (
-    <>
+
+
+  console.log(data?.results);
+
+  if (isLoading) {
+    return  <Spinner/>
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+
+  if(data?.results){
+
+
+    console.log(data.results);
+    
+    const displayedMovies = filterFunction(data.results);
+
+    return (
+
+      <>
       <PageTemplate
-        title='Discover Movies'
+        title='UpComing Movies'
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
           return <PlayListAddIcon {...movie} />
@@ -70,6 +77,12 @@ const UpcomingMoviesPage: React.FC = () => {
         genreFilter={filterValues[1].value}
       />
     </>
-  );
+
+    )
+  }
+
+
+
+
 };
 export default UpcomingMoviesPage;

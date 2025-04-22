@@ -64,7 +64,7 @@ export const getMovie = (id: string) => {
       .then((res) => res.json())
       .then((json) => {
         // console.log(json.results);
-        return json.results;
+        return json
       });
   };
 
