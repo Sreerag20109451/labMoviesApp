@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
@@ -12,6 +12,7 @@ import Spinner from "../components/spinner";
 
 import PlayListAddIcon from "../components/cardIcons/playlistAddIcon";
 import { useQuery } from "react-query";
+import { MoviesContext } from "../contexts/moviesContext";
 
 const titleFiltering = {
   name: "title",
@@ -29,6 +30,8 @@ const genreFiltering = {
 const UpcomingMoviesPage: React.FC = () => {
 
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming_movies", getUpcomingMovies);
+
+
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [titleFiltering, genreFiltering]
   );

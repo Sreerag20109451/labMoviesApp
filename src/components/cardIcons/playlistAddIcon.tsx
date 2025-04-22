@@ -7,9 +7,15 @@ import { PlaylistAdd } from "@mui/icons-material";
 
 const PlayListAddIcon: React.FC<BaseMovieProps> = (movie) => {
  
+
+  const {mustWatch, addToMustWatch, removeFromMustWatch} = useContext(MoviesContext)
  const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Play list added");
+
+    if(movie.id in mustWatch) return removeFromMustWatch(movie)
+    addToMustWatch(movie)
+    console.log(mustWatch);
+    
     
   };
   return (
