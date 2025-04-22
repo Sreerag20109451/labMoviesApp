@@ -18,10 +18,11 @@ export interface BaseMovieProps {
     genre_ids?: number[];
   }
 
-  export interface BaseMovieListProps { 
-    movies: BaseMovieProps[],
-    selectFavourite: (id: number) => void
-  }     
+  export interface BaseMovieListProps {
+    movies: BaseMovieProps[];
+    action: (m: BaseMovieProps) => React.ReactNode;
+  }
+  
 
   export interface MovieDetailsProps extends BaseMovieProps {
     genres: {
@@ -75,3 +76,12 @@ export interface BaseMovieProps {
     total_results: number;
     results: BaseMovieProps[];
   }
+
+
+    export interface Review {
+      author: string,
+      content: string,
+      agree: boolean,
+      rating: number,
+      movieId: number,
+    }
