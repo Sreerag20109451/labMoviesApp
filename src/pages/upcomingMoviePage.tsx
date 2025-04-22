@@ -9,6 +9,7 @@ import MovieFilterUI, {
   genreFilter,
 } from "../components/movieFilterUI";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import PlayListAddIcon from "../components/cardIcons/playlistAddIcon";
 
 const titleFiltering = {
   name: "title",
@@ -59,7 +60,7 @@ const UpcomingMoviesPage: React.FC = () => {
         title='Discover Movies'
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
-          return <AddToFavouritesIcon {...movie} />
+          return <PlayListAddIcon {...movie} />
         }}
       
       />
