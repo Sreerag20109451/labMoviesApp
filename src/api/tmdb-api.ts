@@ -70,3 +70,5 @@ export const getMovie = (id: string) => {
 
   
 
+
+

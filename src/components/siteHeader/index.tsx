@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,8 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { SessionContext } from "../../contexts/sessionContext";
+import { ExitToApp } from "@mui/icons-material";
 
 const styles = {
     title: {
@@ -21,6 +23,11 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+
+  const {isLoggedIn,toggleUserLoggedIn}  = useContext(SessionContext)
+  console.log(isLoggedIn);
+  
+  
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
   const open = Boolean(anchorEl);
@@ -33,6 +40,12 @@ const SiteHeader: React.FC = () => {
     { label: "Upcoming Movies", path: "/movies/upcoming" },
     { label: "Option 4", path: "/" },
   ];
+
+
+  const navigateToLoginPage = () => {
+
+    navigate("/login")
+  }
 
   const handleMenuSelect = (pageURL: string) => {
     navigate(pageURL);
@@ -102,7 +115,21 @@ const SiteHeader: React.FC = () => {
               ))}
             </>
           )}
+             
+        {!isLoggedIn && <Button  variant="text" color="inherit"
+      startIcon={<ExitToApp />}
+      onClick={ () => navigateToLoginPage() }
+    >
+      Login
+    </Button>}
+    {isLoggedIn && <Button variant="text" color="inherit"
+      startIcon={<ExitToApp />}
+      onClick={ () => navigateToLoginPage() }
+    >
+      Logout
+    </Button>}
         </Toolbar>
+     
       </AppBar>
       <Offset />
     </>

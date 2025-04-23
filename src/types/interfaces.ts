@@ -85,3 +85,11 @@ export interface BaseMovieProps {
       rating: number,
       movieId: number,
     }
+
+
+
+ export interface SignInType {
+      email: string;
+      password: string;
+  };
+    
