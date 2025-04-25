@@ -93,3 +93,61 @@ export interface BaseMovieProps {
       password: string;
   };
     
+
+
+  export interface PeopleProps{
+
+      adult?: boolean; 
+      also_known_as: string[];
+      biography: string;
+      birthday: string;
+      deathday: string;
+      gender?: number; 
+      homepage: string;
+      id?: number;
+      imdb_id: string;
+      known_for_department: string;
+      name: string;
+      place_of_birth: string;
+      popularity?: number; 
+      profile_path: string;
+
+
+    }
+    
+
+    export interface ActorListProps {
+
+      actors : PeopleProps[]
+    }
+
+
+  export interface ActorListTemplateProps{
+
+      actors: PeopleProps[],
+      title : string
+  }
+
+
+  export interface DiscoverPeople {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: PeopleProps[];
+  }
+
+  export interface PeopleProfile {
+    aspect_ratio?: number; 
+    height?: number;      
+    iso_639_1: string;
+    file_path: string;
+    vote_average?: number; 
+    vote_count?: number;  
+    width?: number;     
+  }
+  
+  export interface PeopleProfileForImage {
+    id?: number; // Defaults to 0
+    profiles: PeopleProfile[];
+  }
+  

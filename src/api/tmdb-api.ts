@@ -98,6 +98,35 @@ export const getNowPlaying = () => {
 };
 
 
+export const getPeopleList = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_API_KEY}`
+  ).then((response) => {
+    if (!response.ok)
+      throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    });
+};
+
+
+export const getPeopleImage = (id : number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${id}/images?api_key=${import.meta.env.VITE_API_KEY}`
+  ).then((response) => {
+    if (!response.ok)
+      throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    });
+};
+
+
+
 
 
 
