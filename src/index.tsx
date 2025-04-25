@@ -14,6 +14,8 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import { SessionProvider } from "./contexts/sessionContext";
 import SignInPage from "./pages/loginPage";
+import PopularMoviesPage from "./pages/popularMoviesPage";
+import NowPlayingMoviesPage from "./pages/nowplayingMoviesPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,11 +33,11 @@ const App = () => {
       <BrowserRouter>
         <SessionProvider>
           <SiteHeader />
-
           <MoviesContextProvider>
-  
             <Routes>
 
+            <Route path="/movies/popular" element={<PopularMoviesPage />} />
+            <Route path="/movies/nowplaying" element={<NowPlayingMoviesPage />} />
               <Route path="/login" element={<SignInPage></SignInPage>}></Route>
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
 
