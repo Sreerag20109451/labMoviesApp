@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -7,14 +7,13 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Chip,
-  Stack,
 } from '@mui/material';
-import { PeopleProfile, PeopleProfileForImage, PeopleProps } from '../../types/interfaces';
+import { PeopleProfileForImage, PeopleProps } from '../../types/interfaces';
 import img from '../../images/film-poster-placeholder.png';
 import { getPeopleImage } from '../../api/tmdb-api';
 import { useQuery } from 'react-query';
 import Spinner from "../../components/spinner";
+import { SessionContext } from '../../contexts/sessionContext';
 
 const styles = {
   card: { maxWidth: 345 },
@@ -26,6 +25,8 @@ const styles = {
 
 
 const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
+
+  const {isLoggedIn} = useContext(SessionContext)
 
   const id = actor.id
 
@@ -79,6 +80,7 @@ const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
     Popularity: {actor.popularity?.toFixed(1) ?? 0}
   </Typography>
 
+{ isLoggedIn &&
   <Button
     variant="contained"
     color="primary"
@@ -89,6 +91,7 @@ const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
   >
     View Details
   </Button>
+  }
 </CardContent>
 
       </Card>

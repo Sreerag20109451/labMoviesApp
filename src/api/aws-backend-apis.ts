@@ -1,32 +1,27 @@
-import { SignInType } from "../types/interfaces";
+import { SignInType, LoginResp } from "../types/interfaces";
 
-export const signIn = async(formdata : FormData) => {
+export const signIn = async (formdata: SignInType): Promise<LoginResp> => {
+  try {
+    const response = await fetch("https://60u6cyumw3.execute-api.eu-west-1.amazonaws.com/dev/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: formdata.email,
+        password: formdata.password
+      })
+    });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    try {
-        const response = await fetch("jbjh", {
-          method: 'POST', // HTTP method
-          body: formdata, // Send the FormData as the body
-        });
-    
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-    
-        const responseData = await response.json(); // Parse JSON response
-        console.log('Response:', responseData); // Handle the response data
-    
-      } catch (error) {
-        console.error('Error:', error); // Handle errors
-      }
-    };
-
-
-export const signInTest = async(formdata : SignInType) => {
-
-  console.log(formdata.email);
-  
-    console.log("Signed In");
-}
-
-
+    const data: LoginResp = await response.json();
+    console.log("Login successful:", data);
+    return data;
+  } catch (error) {
+    console.error("Login failed:", error);
+    throw error; // Important: rethrow so the calling function can catch it
+  }
+};

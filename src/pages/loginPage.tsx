@@ -3,6 +3,10 @@ import { Box, Typography, Paper } from '@mui/material'; // Make sure path is cor
 import LoginForm from '../components/signinForm';
 
 const SignInPage: React.FC = () => {
+
+
+
+
   return (
     <Box
       display="flex"

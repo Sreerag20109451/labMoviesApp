@@ -9,7 +9,6 @@ import { PeopleDetails, PeopleProfileForImage } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import { getPeopleImage } from "../../api/tmdb-api";
 import { CardMedia } from "@mui/material";
-import ActorHeader from "../actorHeader";
 
 const styles = {
   chipSet: {

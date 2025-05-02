@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import {
   TextField,
@@ -7,13 +7,16 @@ import {
   Typography,
   Snackbar,
 } from '@mui/material';
-import { signInTest } from '../../api/aws-backend-apis';
-import { SignInType } from '../../types/interfaces';
+import { signIn } from '../../api/aws-backend-apis';
+import { LoginResp, SignInType } from '../../types/interfaces';
+import { SessionContext } from '../../contexts/sessionContext';
+import { useNavigate } from 'react-router-dom';
 
 
 export const LoginForm: React.FC = () => {
   const { control, handleSubmit , formState : { errors} } = useForm<SignInType>();
-
+ const { isLoggedIn, setLoggedInTrue } = useContext(SessionContext)
+ const navigate = useNavigate();
 
   const [open, setOpen] = useState(false); 
 
@@ -30,11 +33,18 @@ export const LoginForm: React.FC = () => {
       setOpen(false);
     };
 
-  const onSubmit = (data: SignInType) => {
+  const onSubmit =  async (data: SignInType) => {
   
-
-    signInTest(data).then(() => console.log("Signed In")).catch((err) => console.log(err))
-  
+    try {
+      const response = await signIn(data);
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("username", response.username);
+      setLoggedInTrue()
+      navigate("/")
+      
+    } catch (err) {
+      console.log("Login error:", err);
+    }
     
   };
 
@@ -50,13 +60,13 @@ export const LoginForm: React.FC = () => {
         name="email"
         control={control}
         defaultValue=""
-        rules={{ required: 'Email is required' }}
+        rules={{ required: 'username is required' }}
         render={({ field, fieldState }) => (
           <TextField
             {...field}
             id="email"
-            label="Email"
-            type="email"
+            label="Username"
+            type="text"
             fullWidth
             margin="normal"
             error={!!fieldState.error}

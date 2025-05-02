@@ -24,8 +24,16 @@ const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
 
-  const {isLoggedIn,toggleUserLoggedIn}  = useContext(SessionContext)
+  const {isLoggedIn, setLoggedInFalse}  = useContext(SessionContext)
   console.log(isLoggedIn);
+
+
+  const logout = () => {
+
+
+    localStorage.clear()
+    setLoggedInFalse()
+  }
   
   
   const navigate = useNavigate();
@@ -34,7 +42,16 @@ const SiteHeader: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const menuOptions = [
+const loggedOffOptions = [
+  { label: "Home", path: "/" },
+  { label: "Upcoming Movies", path: "/movies/upcoming" },
+  { label: "Popular Movies", path: "/movies/popular" },
+  { label: "Now Playing", path: "/movies/nowplaying" },
+  { label: "Actors", path: "/actors/" },  
+]
+
+
+  const loggedInOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favourites" },
     { label: "Upcoming Movies", path: "/movies/upcoming" },
@@ -43,8 +60,10 @@ const SiteHeader: React.FC = () => {
     { label: "Actors", path: "/actors/" }, 
     { label: "TV Series", path: "/tvseries" },   
     { label: "Create-Fantasy", path: "/fantasy/" },
+    { label: "Themed Playlist", path: "/themedPlayList/" },
   ];
 
+  const menuOptions = isLoggedIn ? loggedInOptions : loggedOffOptions
 
   const navigateToLoginPage = () => {
 
@@ -128,7 +147,7 @@ const SiteHeader: React.FC = () => {
     </Button>}
     {isLoggedIn && <Button variant="text" color="inherit"
       startIcon={<ExitToApp />}
-      onClick={ () => navigateToLoginPage() }
+      onClick={ () => logout() }
     >
       Logout
     </Button>}

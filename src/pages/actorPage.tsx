@@ -1,15 +1,10 @@
-import React, { useContext } from "react";
-import PageTemplate from "../components/templateMovieListPage";
-import { getMovies, getPeopleList } from "../api/tmdb-api";
-import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, {
-  titleFilter,
-  genreFilter,
-} from "../components/movieFilterUI";
-import { BaseMovieProps, DiscoverMovies, DiscoverPeople } from "../types/interfaces";
+import React from "react";
+import { getPeopleList } from "../api/tmdb-api";
+
+
+import { DiscoverPeople } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import ActorListTemplate from "../components/actorTemplateList";
 
 const ActorsPage: React.FC = () => {
@@ -38,7 +33,7 @@ if(data){
           />
         </>
       );
-    };
+    }
 
 }
  

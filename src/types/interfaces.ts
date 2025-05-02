@@ -91,7 +91,7 @@ export interface BaseMovieProps {
  export interface SignInType {
       email: string;
       password: string;
-  };
+  }
     
 
 
@@ -170,5 +170,12 @@ export interface BaseMovieProps {
     place_of_birth: string;
     popularity: number;
     profile_path: string | null;
+  }
+
+  export interface  LoginResp {
+
+      message: string,
+      token: string,
+      username: string
   }
   

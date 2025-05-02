@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -10,7 +10,6 @@ import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
-import { SessionContext } from "../contexts/sessionContext";
 
 
 const titleFiltering = {
@@ -52,11 +51,9 @@ const HomePage: React.FC = () => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
-
-  // Redundant, but necessary to avoid app crashing.
   const favourites = movies.filter(m => m.favourite)
   localStorage.setItem("favourites", JSON.stringify(favourites));
-  const addToFavourites = (movieId: number) => true;
+ 
 
   return (
     <>

@@ -128,7 +128,7 @@ export const getPeopleImage = (id : number) => {
 
 export const getPerson = (id: string) => {
   return fetch(
-    `https://api.themoviedb.org/3/person/287?api_key=${import.meta.env.VITE_API_KEY}`
+    `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_API_KEY}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(`Failed to get Actor data. Response status: ${response.status}`);

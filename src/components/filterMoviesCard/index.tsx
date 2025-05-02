@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";//update existing import
+import React, { ChangeEvent } from "react";//update existing import
 import { FilterOption } from "../../types/interfaces"
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";

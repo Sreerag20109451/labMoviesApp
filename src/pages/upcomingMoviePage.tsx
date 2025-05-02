@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
-import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
+import { getUpcomingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
@@ -12,7 +12,6 @@ import Spinner from "../components/spinner";
 
 import PlayListAddIcon from "../components/cardIcons/playlistAddIcon";
 import { useQuery } from "react-query";
-import { MoviesContext } from "../contexts/moviesContext";
 
 const titleFiltering = {
   name: "title",

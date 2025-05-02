@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom"; // assuming you're using React Router
 import { CircularProgress, Container, Alert } from "@mui/material";
-import { PeopleDetails, PeopleProps } from "../types/interfaces";
+import { PeopleDetails } from "../types/interfaces";
 import { useQuery } from "react-query";
 import { getPerson } from "../api/tmdb-api";
 import ActorDetails from "../components/actorDetails";
