@@ -95,6 +95,9 @@ export interface BaseMovieProps {
     
 
 
+
+// Actors
+
   export interface PeopleProps{
 
       adult?: boolean; 
@@ -149,5 +152,23 @@ export interface BaseMovieProps {
   export interface PeopleProfileForImage {
     id?: number; // Defaults to 0
     profiles: PeopleProfile[];
+  }
+  
+
+  export interface PeopleDetails {
+    adult: boolean;
+    also_known_as: string[];
+    biography: string;
+    birthday: string;
+    deathday: string | null;
+    gender: number;
+    homepage: string | null;
+    id: number;
+    imdb_id: string;
+    known_for_department: string;
+    name: string;
+    place_of_birth: string;
+    popularity: number;
+    profile_path: string | null;
   }
   

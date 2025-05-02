@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {
+  Button,
   Card,
   CardHeader,
   CardContent,
@@ -26,6 +28,8 @@ const styles = {
 const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
 
   const id = actor.id
+
+
   const { data, error, isLoading, isError } = useQuery<PeopleProfileForImage, Error>(
     ["actor", id],
     ()=> getPeopleImage(id || 0)
@@ -41,6 +45,11 @@ const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
 
   if(data){
 
+    const arrNum = data.profiles.length
+
+    const index = Math.floor(Math.random() * arrNum);
+    
+
     console.log(data);
     
     return (
@@ -53,26 +62,35 @@ const ActorCard: React.FC<{ actor: PeopleProps }> = ({ actor }) => {
           sx={styles.media}
           image={
             data
-              ? `https://image.tmdb.org/t/p/w500/${data.profiles[0].file_path}`
+              ? `https://image.tmdb.org/t/p/w500/${data.profiles[index].file_path}`
               : img
           }
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Born: {actor.birthday} {actor.place_of_birth && `in ${actor.place_of_birth}`}
-          </Typography>
-          {actor.deathday && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Died: {actor.deathday}
-            </Typography>
-          )}
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Popularity: {actor.popularity?.toFixed(1) ?? 0}
-          </Typography>
-          {/* <Typography variant="body2" color="text.secondary" paragraph>
-            {actor.biography.slice(0, 150)}...
-          </Typography> */}
-        </CardContent>
+  <Typography variant="body2" color="text.secondary" gutterBottom>
+    Born: {actor.birthday} {actor.place_of_birth && `in ${actor.place_of_birth}`}
+  </Typography>
+  {actor.deathday && (
+    <Typography variant="body2" color="text.secondary" gutterBottom>
+      Died: {actor.deathday}
+    </Typography>
+  )}
+  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+    Popularity: {actor.popularity?.toFixed(1) ?? 0}
+  </Typography>
+
+  <Button
+    variant="contained"
+    color="primary"
+    component={Link}
+    to={`/actors/${actor.id}`}
+    sx={{ mt: 1 }}
+    fullWidth
+  >
+    View Details
+  </Button>
+</CardContent>
+
       </Card>
     );
   }
