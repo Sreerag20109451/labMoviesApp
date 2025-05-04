@@ -1,3 +1,5 @@
+import { ReviewAdd } from "../types/interfaces";
+
 export const getMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
@@ -140,6 +142,26 @@ export const getPerson = (id: string) => {
  });
 };
 
+export const postReview = async (review: ReviewAdd): Promise<any> => {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("No token found. Please login.");
+
+  const response = await fetch("https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(review),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Failed to post review: ${error}`);
+  }
+
+  return response.json();
+};
 
 
 

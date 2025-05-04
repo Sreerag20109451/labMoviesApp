@@ -9,9 +9,10 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles";
 import ratings from "./ratingCategories";
-import { BaseMovieProps, Review } from "../../types/interfaces";
+import { BaseMovieProps, Review, ReviewAdd } from "../../types/interfaces";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { postReview } from "../../api/tmdb-api";
 
 
 const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
@@ -23,20 +24,18 @@ const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
       };
     const defaultValues = {
         defaultValues: {
-          author: "",
-          review: "",
-          agree: false,
-          rating: 3,
-          movieId: 0,
+          content : "",
+          movieId : movie.id ,
+          rating: 3 as 1 | 2 | 3 | 4 | 5,
         }
-      };
+      }
     
       const {
         control,
         formState: { errors },
         handleSubmit,
         reset,
-      } = useForm<Review>(defaultValues);
+      } = useForm<ReviewAdd>(defaultValues);
     
       const navigate = useNavigate();
       const context = useContext(MoviesContext);
@@ -46,12 +45,17 @@ const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
       const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
         setRating(Number(event.target.value));
       };
-      const onSubmit: SubmitHandler<Review> = (review) => {
-        review.movieId = movie.id;
-        review.rating = rating;
-        context.addReview(movie, review);
-        setOpen(true); // NEW
-        // console.log(review);
+      const onSubmit: SubmitHandler<ReviewAdd> = async (review) => {
+        try {
+          await postReview({
+            content: review.content,
+            rating: rating as 1 | 2 | 3 | 4 | 5, // safely cast
+            movieId: movie.id, // convert movie.id to string
+          });
+          setOpen(true);
+        } catch (err) {
+          console.error("Failed to submit review:", err);
+        }
       };
     
       return (
@@ -76,30 +80,6 @@ const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
       </Snackbar>
           </Typography>
           <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Controller
-              name="author"
-              control={control}
-              rules={{ required: "Name is required" }}
-              defaultValue=""
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  sx={{ width: "40ch" }}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  onChange={onChange}
-                  value={value}
-                  id="author"
-                  label="Author's name"
-                  autoFocus
-                />
-              )}
-            />
-            {errors.author && (
-              <Typography variant="h6" component="p">
-                {errors.author.message}
-              </Typography>
-            )}
             <Controller
               name="content"
               control={control}
@@ -168,8 +148,8 @@ const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
                 sx={styles.submit}
                 onClick={() => {
                   reset({
-                    author: "",
                     content: "",
+                    rating : 3 as 1 | 2 | 3 | 4 | 5, 
                   });
                 }}
               >

@@ -2,7 +2,7 @@ import { SignInType, LoginResp } from "../types/interfaces";
 
 export const signIn = async (formdata: SignInType): Promise<LoginResp> => {
   try {
-    const response = await fetch("https://60u6cyumw3.execute-api.eu-west-1.amazonaws.com/dev/auth/login", {
+    const response = await fetch("https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

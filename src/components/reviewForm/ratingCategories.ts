@@ -17,7 +17,7 @@ const ratings = [
       label: "Poor",
     },
     {
-      value: 0,
+      value: 1,
       label: "Terrible",
     },
   ];
