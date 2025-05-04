@@ -1,10 +1,13 @@
 import React from "react";
-import { Review } from "../../types/interfaces";
+import { BackendReview, Review } from "../../types/interfaces";
 
-const MovieReview: React.FC<Review> =  (props) => {
+const MovieReview: React.FC<BackendReview> =  (props) => {
+
+  
+
   return (
     <>
-      <p>Review By: {props.author} </p>
+      <p>Review By: {props.reviewerId} </p>
       <p>{props.content} </p>
     </>
   );

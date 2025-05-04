@@ -198,3 +198,7 @@ export interface BaseMovieProps {
     rating: number
   }
 
+export interface BackendReviews {
+
+  reviews: BackendReview[]
+}

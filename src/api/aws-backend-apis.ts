@@ -22,7 +22,7 @@ export const signIn = async (formdata: SignInType): Promise<LoginResp> => {
     return data;
   } catch (error) {
     console.error("Login failed:", error);
-    throw error; // Important: rethrow so the calling function can catch it
+    throw error;
   }
 };
 
@@ -48,3 +48,30 @@ export const postReview = async (review: ReviewAdd): Promise<any> => {
 };
 
 
+// api/movies-api.ts
+export const getMovieReviews = async (movieId: number) => {
+  const response = await fetch(
+    `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews/${movieId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching movie reviews");
+  }
+
+  const data = await response.json();
+  return data; // Assumed to be an array of reviews
+};
+
+
+export const getSpecificReview = async (movieId: number, reviewId :String) => {
+  const response = await fetch(
+    `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews/${movieId}?reviewId=${reviewId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching movie reviews");
+  }
+
+  const data = await response.json();
+  return data; // Assumed to be an array of reviews
+};
