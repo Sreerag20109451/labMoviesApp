@@ -6,8 +6,10 @@ export interface SessionContextType {
   setLoggedInFalse : () => void
 }
 
+let isUserFound = localStorage.getItem("user") != null
+
 export const SessionContext = createContext<SessionContextType>({
-  isLoggedIn: false,
+  isLoggedIn: isUserFound,
   toggleUserLoggedIn: () => {},
   setLoggedInTrue : () => {},
   setLoggedInFalse : () => {}
