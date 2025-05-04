@@ -6,10 +6,10 @@ export interface SessionContextType {
   setLoggedInFalse : () => void
 }
 
-let isUserFound = localStorage.getItem("user") != null
+
 
 export const SessionContext = createContext<SessionContextType>({
-  isLoggedIn: isUserFound,
+  isLoggedIn: false,
   toggleUserLoggedIn: () => {},
   setLoggedInTrue : () => {},
   setLoggedInFalse : () => {}
@@ -23,7 +23,9 @@ interface SessionProviderProps {
 export const SessionProvider: React.FC<SessionProviderProps> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  let userFound = localStorage.getItem("username") != null
+  const [isLoggedIn, setIsLoggedIn] = useState(userFound);
 
   const toggleUserLoggedIn = () => {
     console.log('Button clicked');

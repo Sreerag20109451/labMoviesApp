@@ -12,7 +12,7 @@ import ratings from "./ratingCategories";
 import { BaseMovieProps, Review, ReviewAdd } from "../../types/interfaces";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { postReview } from "../../api/tmdb-api";
+import { postReview } from "../../api/aws-backend-apis";
 
 
 const ReviewForm: React.FC<BaseMovieProps> = (movie) => {

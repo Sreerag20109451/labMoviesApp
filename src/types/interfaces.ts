@@ -187,3 +187,14 @@ export interface BaseMovieProps {
     rating : 1 | 2| 3| 4| 5,
     
   }
+
+  export interface BackendReview {
+
+    content: string;
+    movieId: number;
+    reviewDate: string;
+    reviewId: number;
+    reviewerId: string;
+    rating: number
+  }
+
