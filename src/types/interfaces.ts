@@ -202,3 +202,8 @@ export interface BackendReviews {
 
   reviews: BackendReview[]
 }
+
+export interface TranslatedReview {
+
+  translatedText :  string
+}

@@ -1,4 +1,4 @@
-import { SignInType, LoginResp, ReviewAdd } from "../types/interfaces";
+import { SignInType, LoginResp, ReviewAdd, TranslatedReview } from "../types/interfaces";
 
 export const signIn = async (formdata: SignInType): Promise<LoginResp> => {
   try {
@@ -63,15 +63,27 @@ export const getMovieReviews = async (movieId: number) => {
 };
 
 
-export const getSpecificReview = async (movieId: number, reviewId :String) => {
-  const response = await fetch(
-    `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews/${movieId}?reviewId=${reviewId}`
-  );
+export const getTranslatedReview = async (
+  reviewId: number,
+  movieId: number,
+  targetLang: string
+): Promise<TranslatedReview> => {
+  const url = `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/reviews/${String(reviewId)}/${String(movieId)}/translation?language=${targetLang}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
 
   if (!response.ok) {
-    throw new Error("Error fetching movie reviews");
+    throw new Error(`Translation failed: ${response.statusText}`);
   }
 
+
   const data = await response.json();
-  return data; // Assumed to be an array of reviews
+  console.log(data);
+  
+  return data;
 };
