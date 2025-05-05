@@ -141,3 +141,22 @@ export const getFavourites = async (userId: string): Promise<BackendFavouriteMov
     throw error; 
   }
 };
+
+
+
+
+export const removeFavouriteForUser = async (userId : string, movieId :number): Promise<any> => {
+  const token  = localStorage.getItem("token")
+  return fetch(`https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/favourites/${userId}/${movieId}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token!!
+    }
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error('Failed to remove favourite');
+    }
+    return response.json();
+  });
+};

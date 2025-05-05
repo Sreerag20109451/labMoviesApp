@@ -1,20 +1,24 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useContext } from "react";
+
+// Define the context type
 export interface SessionContextType {
   isLoggedIn: boolean;
+  username: string | null;
   toggleUserLoggedIn: () => void;
-  setLoggedInTrue : () => void;
-  setLoggedInFalse : () => void
+  setLoggedInTrue: () => void;
+  setLoggedInFalse: () => void;
+  setUsername: (username: string | null) => void;
 }
 
-
-
+// Create the context with default values
 export const SessionContext = createContext<SessionContextType>({
   isLoggedIn: false,
+  username: null,
   toggleUserLoggedIn: () => {},
-  setLoggedInTrue : () => {},
-  setLoggedInFalse : () => {}
+  setLoggedInTrue: () => {},
+  setLoggedInFalse: () => {},
+  setUsername: () => {},
 });
-
 
 interface SessionProviderProps {
   children: ReactNode;
@@ -23,31 +27,43 @@ interface SessionProviderProps {
 export const SessionProvider: React.FC<SessionProviderProps> = ({
   children,
 }) => {
-
-  let userFound = localStorage.getItem("username") != null
+  const userFound = localStorage.getItem("username") != null;
   const [isLoggedIn, setIsLoggedIn] = useState(userFound);
+  const [username, setUsername] = useState<string | null>(localStorage.getItem("username"));
 
+  // Toggle login state and handle localStorage changes
   const toggleUserLoggedIn = () => {
-    console.log('Button clicked');
-    
-    setIsLoggedIn(!isLoggedIn);
+    if (isLoggedIn) {
+      localStorage.removeItem("username");
+      setIsLoggedIn(false);
+      setUsername(null);
+    } else {
+      const storedUsername = "some_username";
+      localStorage.setItem("username", storedUsername);
+      setUsername(storedUsername);
+      setIsLoggedIn(true);
+    }
   };
 
-  const setLoggedInTrue =() =>{
-
-    setIsLoggedIn(true)
-  }
-
+  const setLoggedInTrue = () => {
+    const user = localStorage.getItem("username")
+    setUsername(user);
+    setIsLoggedIn(true);
+  };
 
   const setLoggedInFalse = () => {
+    localStorage.clear()
+    setUsername(null);
+    setIsLoggedIn(false);
+  };
 
-    setIsLoggedIn(false)
-  }
   const value = {
-    isLoggedIn: isLoggedIn,
-    toggleUserLoggedIn: toggleUserLoggedIn,
-    setLoggedInTrue ,
-    setLoggedInFalse
+    isLoggedIn,
+    username,
+    toggleUserLoggedIn,
+    setLoggedInTrue,
+    setLoggedInFalse,
+    setUsername,
   };
 
   return (

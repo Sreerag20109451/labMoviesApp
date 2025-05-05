@@ -214,3 +214,5 @@ export interface BackendFavouriteMovie {
   movieTitle: string;    
   poster_path: string;   
 }
+
+export type MovieSortKey = "title" | "release_date" | "vote_average" | "popularity" | "runtime" | "revenue";
