@@ -1,8 +1,8 @@
-import { SignInType, LoginResp, ReviewAdd, TranslatedReview } from "../types/interfaces";
+import { SignInType, LoginResp, ReviewAdd, TranslatedReview, BackendFavouriteMovie } from "../types/interfaces";
 
 export const signIn = async (formdata: SignInType): Promise<LoginResp> => {
   try {
-    const response = await fetch("https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/auth/login", {
+    const response = await fetch("https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -30,7 +30,7 @@ export const postReview = async (review: ReviewAdd): Promise<any> => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("No token found. Please login.");
 
-  const response = await fetch("https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews", {
+  const response = await fetch("https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const postReview = async (review: ReviewAdd): Promise<any> => {
 // api/movies-api.ts
 export const getMovieReviews = async (movieId: number) => {
   const response = await fetch(
-    `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews/${movieId}`
+    `https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/movies/reviews/${movieId}`
   );
 
   if (!response.ok) {
@@ -68,7 +68,7 @@ export const getTranslatedReview = async (
   movieId: number,
   targetLang: string
 ): Promise<TranslatedReview> => {
-  const url = `https://ae0qdpiue6.execute-api.eu-west-1.amazonaws.com/dev/reviews/${String(reviewId)}/${String(movieId)}/translation?language=${targetLang}`;
+  const url = `https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/reviews/${String(reviewId)}/${String(movieId)}/translation?language=${targetLang}`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -86,4 +86,58 @@ export const getTranslatedReview = async (
   console.log(data);
   
   return data;
+};
+
+
+
+export const addFavouritesForUser = async (favourite: BackendFavouriteMovie) => {
+  const token = localStorage.getItem("token")
+  try {
+    const response = await fetch("https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/favourites", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token!!
+      },
+      body: JSON.stringify(favourite)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Successfully added favourite:", data);
+  } catch (error) {
+    console.error("Error adding favourite:", error);
+  }
+};
+
+
+export const getFavourites = async (userId: string): Promise<BackendFavouriteMovie[]> => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  try {
+    const response = await fetch(`https://35ol6tq8n9.execute-api.eu-west-1.amazonaws.com/dev/favourites/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching favourites:", error);
+    throw error; 
+  }
 };

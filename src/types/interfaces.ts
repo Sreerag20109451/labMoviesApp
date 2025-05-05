@@ -207,3 +207,10 @@ export interface TranslatedReview {
 
   translatedText :  string
 }
+
+export interface BackendFavouriteMovie {
+  userId: string;        
+  movieId: number;       
+  movieTitle: string;    
+  poster_path: string;   
+}
