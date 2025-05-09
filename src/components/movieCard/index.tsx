@@ -80,6 +80,7 @@ const isFavourite = favourites.find((id) => id === movie.id)? true : false;//NEW
             </Typography>
           </Grid>
         </Grid>
+        
       </CardContent>
     {  isLoggedIn && <CardActions disableSpacing>
       {action(movie)}

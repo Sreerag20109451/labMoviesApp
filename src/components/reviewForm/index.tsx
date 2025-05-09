@@ -49,8 +49,8 @@ const ReviewForm: React.FC<BaseMovieProps> = (movie) => {
         try {
           await postReview({
             content: review.content,
-            rating: rating as 1 | 2 | 3 | 4 | 5, // safely cast
-            movieId: movie.id, // convert movie.id to string
+            rating: rating as 1 | 2 | 3 | 4 | 5,
+            movieId: movie.id, 
           });
           setOpen(true);
         } catch (err) {

@@ -216,3 +216,32 @@ export interface BackendFavouriteMovie {
 }
 
 export type MovieSortKey = "title" | "release_date" | "vote_average" | "popularity" | "runtime" | "revenue";
+
+
+ export interface Cast {
+  name: string;
+  role: string;
+  description: string;
+}
+
+
+export interface FantasyMovie {
+  userId : string
+  title: string;
+  overview: string;
+  genre: string;
+  releaseDate: string;
+  runtime: string;
+  productionCompany: string;
+  poster: File | null;
+  casts: Cast[];  
+}
+
+
+
+export interface SearchCriteria {
+  title: string;
+  language: string;
+  runtime: string
+  voteAverage: string  
+}

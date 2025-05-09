@@ -59,7 +59,7 @@ export const getMovieReviews = async (movieId: number) => {
   }
 
   const data = await response.json();
-  return data; // Assumed to be an array of reviews
+  return data; 
 };
 
 

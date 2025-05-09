@@ -1,15 +1,16 @@
 import { ReviewAdd } from "../types/interfaces";
 
-export const getMovies = () => {
+export const getMovies = (page: number) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-  ).then((response) => {
-    if (!response.ok)
-      throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
-    return response.json();
-  })
+    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
+      return response.json();
+    })
     .catch((error) => {
-      throw error
+      throw error;
     });
 };
 
@@ -100,9 +101,9 @@ export const getNowPlaying = () => {
 };
 
 
-export const getPeopleList = () => {
+export const getPeopleList = (page: number) => {
   return fetch(
-    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_API_KEY}`
+    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);

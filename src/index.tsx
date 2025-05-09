@@ -18,6 +18,8 @@ import NowPlayingMoviesPage from "./pages/nowplayingMoviesPage";
 import ActorsPage from "./pages/actorPage";
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import { FantasyPage } from "./pages/fantasyPage";
+import FantasyMoviePage from "./pages/fantasyMoviePage";
+import { FantasyProvider } from "./contexts/fantasyContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,9 +38,11 @@ const App = () => {
         <SessionProvider>
           <SiteHeader />
           <MoviesContextProvider>
+            <FantasyProvider>
             <Routes>
 
-            <Route path="/fantasy" element={<FantasyPage />} />
+            <Route path="/fantasy" element={<FantasyMoviePage />} />
+            <Route path="/fantasy/create" element={<FantasyPage />} />
             <Route path="/actors/:id" element={<ActorDetailsPage />} />
             <Route path="/actors" element={<ActorsPage />} />
             <Route path="/movies/popular" element={<PopularMoviesPage />} />
@@ -56,6 +60,7 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+            </FantasyProvider>
           </MoviesContextProvider>
         </SessionProvider>
       </BrowserRouter>

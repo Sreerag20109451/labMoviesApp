@@ -11,19 +11,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useQuery } from "react-query";
-import { DiscoverPeople, GenreData } from "../../types/interfaces";
+import { DiscoverPeople, FantasyMovie, GenreData } from "../../types/interfaces";
 import { getGenres, getPeopleList } from "../../api/tmdb-api";
 import { isError } from "lodash";
 import Spinner from "../spinner";
 import { CloudUpload } from "@mui/icons-material";
+import { FantasyContext } from "../../contexts/fantasyContext";
 
 export const FantasyForm = () => {
+
+  const {fantasyMovies, addFantasyMovies} = useContext(FantasyContext)
   const { data, isLoading, isError, error } = useQuery<GenreData, Error>({
     queryKey: ["getGenres"],
     queryFn: getGenres,
   });
+
 
   const { data : cast, error :casterror, isLoading : castLoading, isError :castError} = useQuery<DiscoverPeople, Error>("discoverPeople", getPeopleList);
 
@@ -46,7 +50,6 @@ export const FantasyForm = () => {
 
   const [cast1, setNewCast1] = useState({name : "" , role: "", description: "" });
   const [cast2, setNewCast2] = useState({name : "" , role: "", description: "" });
-  const [movieCast, setmovieCast] = useState([cast1,cast2]);
   
 
 
@@ -66,17 +69,18 @@ export const FantasyForm = () => {
     setFormData(emptyFormData)
     setNewCast1({name : "" , role: "", description: "" })
     setNewCast2({name : "" , role: "", description: "" })
-    setmovieCast([cast1,cast2])
   }
 
   const handleSubmit = () =>{
 
-      let prev = movieCast
-      let castMovie = [cast1,cast2]
-      setmovieCast(castMovie)
-      const fantasyMovie = {...formData, casts : [movieCast]}
+    const userId = localStorage.getItem("username") || ""
+      const fantasyMovie : FantasyMovie = {...formData, userId, casts : [cast1, cast2]}
+      addFantasyMovies(fantasyMovie)
+
+
 
       console.log(fantasyMovie);
+      console.log(fantasyMovies)
 
       reset()
       

@@ -59,7 +59,8 @@ const loggedOffOptions = [
     { label: "Now Playing", path: "/movies/nowplaying" },
     { label: "Actors", path: "/actors/" }, 
     { label: "TV Series", path: "/tvseries" },   
-    { label: "Create-Fantasy", path: "/fantasy/" },
+    { label: "Fantasy Movies", path: "/fantasy/" },
+    { label: "Create-Fantasy", path: "/fantasy/create" },
     { label: "Themed Playlist", path: "/themedPlayList/" },
   ];
 
