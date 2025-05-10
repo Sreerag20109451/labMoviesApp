@@ -20,6 +20,9 @@ import ActorDetailsPage from "./pages/actorDetailsPage";
 import { FantasyPage } from "./pages/fantasyPage";
 import FantasyMoviePage from "./pages/fantasyMoviePage";
 import { FantasyProvider } from "./contexts/fantasyContext";
+import { PlaylistProvider } from "./contexts/playListContext";
+import { CreatePlaylist } from "./components/createThemedPlaylist";
+import ThemesPage from "./pages/themedPlayList";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,11 +39,14 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <SessionProvider>
+        <PlaylistProvider>
           <SiteHeader />
           <MoviesContextProvider>
             <FantasyProvider>
             <Routes>
 
+            <Route path="/themedplaylist" element={<ThemesPage />} />
+            <Route path="/createthemedplaylist" element={<CreatePlaylist />} />
             <Route path="/fantasy" element={<FantasyMoviePage />} />
             <Route path="/fantasy/create" element={<FantasyPage />} />
             <Route path="/actors/:id" element={<ActorDetailsPage />} />
@@ -62,6 +68,7 @@ const App = () => {
             </Routes>
             </FantasyProvider>
           </MoviesContextProvider>
+          </PlaylistProvider>
         </SessionProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

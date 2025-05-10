@@ -101,9 +101,9 @@ export const getNowPlaying = () => {
 };
 
 
-export const getPeopleList = (page: number) => {
+export const getPeopleList = () => {
   return fetch(
-    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`
+    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_API_KEY}`
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);

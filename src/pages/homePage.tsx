@@ -58,17 +58,14 @@ const HomePage: React.FC = () => {
     const runtimeValue = criteria.runtime ? parseInt(criteria.runtime) : null;
 
     const filtered = data.results.filter((movie) => {
-      // Title filter
       const titleMatch = criteria.title
         ? movie.title.toLowerCase().includes(criteria.title.toLowerCase())
         : true;
 
-      // Language filter
       const languageMatch = criteria.language
         ? movie.original_language.toLowerCase() === criteria.language.toLowerCase()
         : true;
 
-      // Runtime filter
       const runtimeMatch = runtimeValue !== null
         ? movie.runtime <= runtimeValue
         : true;

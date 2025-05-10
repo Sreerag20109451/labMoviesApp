@@ -61,7 +61,8 @@ const loggedOffOptions = [
     { label: "TV Series", path: "/tvseries" },   
     { label: "Fantasy Movies", path: "/fantasy/" },
     { label: "Create-Fantasy", path: "/fantasy/create" },
-    { label: "Themed Playlist", path: "/themedPlayList/" },
+    { label: "Themed Playlist", path: "/themedplaylist/" },
+    { label: "Add Playlist", path: "/createthemedplaylist/" },
   ];
 
   const menuOptions = isLoggedIn ? loggedInOptions : loggedOffOptions
