@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# ASSIGNMENT -ENTERPRISE WEB DEVELOPMENT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This MovieApp is a React Application, which can be used to display movies, actors, reviews, and many other features.
 
-Currently, two official plugins are available:
+## User Interfaces
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Apart from the movie and review interfaces, multiple new interfaces are present
 
-## Expanding the ESLint configuration
+- Translation of Reviews
+- Create Fantasy Movies
+- Now Playing
+- Actor List
+- Actor Details
+- Upcoming Movies
+- Now Playing
+- ThemedPlaylist
+- Log IN
+- -Themed Login Form
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+##  Features
 
-- Configure the top-level `parserOptions` property like this:
+This application comes with a rich feature list, including
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Movie Details
+- Movie List
+- Add Reviews
+- Display Reviews
+- Now Playing
+- Actors
+- Upcoming Movies
+- Review Translation to different languages
+- Favourites
+- Fantasy Movies
+- Themed Playlist
+- Sorting
+- Multi-Criterion Search
+- Pagination
+- Session Handling
+- Authentication
+- StoryBook Support
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+##  Cloud Integration
+
+- The React application has been hosted in CloudFront and S3
+- Sign-in has been integrated with AWS Cognito
+- Review Addition, and reviews displayed are from DynamoDB
+- Addition of Favourites, Deletion of Favourites and Display of Favourites have been integrated with API Gateway, DynamoDB and Lambda.
