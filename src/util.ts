@@ -3,6 +3,8 @@ import { BaseMovieProps, MovieDetailsProps, MovieSortKey } from "./types/interfa
 
 
 type SortableMovies = BaseMovieProps[] | MovieDetailsProps[];
+
+
 export const excerpt = (string: string) => {
     return truncate(string, {
         length: 400, 
