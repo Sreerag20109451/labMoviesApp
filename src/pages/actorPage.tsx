@@ -16,8 +16,7 @@ const ActorsPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>(
     ["discoverPeople", currentPage], 
     async () => {
-      // Make sure getMovies is called correctly as an async function
-      return await getPeopleList(currentPage);
+      return await getPeopleList();
     },
     {
       keepPreviousData: true,

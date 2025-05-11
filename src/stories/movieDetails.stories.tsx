@@ -3,19 +3,33 @@ import MovieDetails from "../components/movieDetails";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
+import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-const meta = {
-    title: "Movie Details Page/MovieDetails",
-    component: MovieDetails,
-    decorators: [
-        (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
-        (Story) => <MoviesContextProvider>{Story()}</MoviesContextProvider>,
-      ],
-} satisfies Meta<typeof MovieDetails>;
+const queryClient = new QueryClient();
+
+const meta: Meta<typeof MovieDetails> = {
+  title: "Movie Details Page/MovieDetails",
+  component: MovieDetails,
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <QueryClientProvider client={queryClient}>
+          <MoviesContextProvider>
+            <Story />
+          </MoviesContextProvider>
+        </QueryClientProvider>
+      </MemoryRouter>
+    ),
+  ],
+};
+
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
 export const Basic: Story = {
-    args: SampleMovie
+  args: SampleMovie,
 };
+
 Basic.storyName = "Default";

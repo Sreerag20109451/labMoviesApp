@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
-import { BaseMovieProps, DiscoverMovies, SearchCriteria } from "../types/interfaces";
+import { BaseMovieProps, DiscoverMovies, MovieSortKey, SearchCriteria } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
@@ -21,8 +21,16 @@ import {
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import useFiltering from "../hooks/useFiltering";
+import SortSelector from "../components/sortUi";
+import { sortMovies } from "../util";
+
 
 const HomePage: React.FC = () => {
+  const [sortKey, setSortKey] = useState<MovieSortKey>("title");
+
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchResults, setSearchResults] = useState<BaseMovieProps[] | null>(null);
   const [criteria, setCriteria] = useState<SearchCriteria>({
@@ -111,7 +119,8 @@ const HomePage: React.FC = () => {
   }
 
   const movies = data ? data.results : [];
-  const displayedMovies = searchResults ?? movies;
+const filteredMovies = searchResults ?? movies;
+const displayedMovies = sortMovies(filteredMovies, sortKey);
 
   const favourites = movies.filter((m) => m.favourite);
   localStorage.setItem("favourites", JSON.stringify(favourites));
@@ -219,6 +228,7 @@ const HomePage: React.FC = () => {
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => <AddToFavouritesIcon {...movie} />}
       />
+        <SortSelector sortKey={sortKey} onChange={setSortKey} />
 
       <Box display="flex" justifyContent="center" mt={4} mb={4}>
         <Pagination
@@ -230,6 +240,7 @@ const HomePage: React.FC = () => {
           color="primary"
           size="large"
         />
+
       </Box>
     </>
   );

@@ -1,25 +1,33 @@
-
 import type { Meta } from '@storybook/react';
+import React from 'react';
 import MovieList from "../components/movieList";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
-
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import Grid from "@mui/material/Grid";
 import MoviesContextProvider from "../contexts/moviesContext";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
-const meta = {
+const queryClient = new QueryClient();
+
+const meta: Meta<typeof MovieList> = {
   title: "Home Page/MovieList",
   component: MovieList,
   decorators: [
-      (Story) => <MemoryRouter initialEntries={["/"]}><Story /></MemoryRouter>,
-      (Story) => <MoviesContextProvider><Story /></MoviesContextProvider>,
-    ],
-    
-} satisfies Meta<typeof MovieList>;
-export default meta;
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <QueryClientProvider client={queryClient}>
+          <MoviesContextProvider>
+            <Story />
+          </MoviesContextProvider>
+        </QueryClientProvider>
+      </MemoryRouter>
+    ),
+  ],
+};
 
+export default meta;
 
 export const Basic = () => {
   const movies = [
@@ -29,6 +37,7 @@ export const Basic = () => {
     { ...SampleMovie, id: 4 },
     { ...SampleMovie, id: 5 },
   ];
+
   return (
     <Grid container spacing={5}>
       <MovieList
@@ -38,6 +47,5 @@ export const Basic = () => {
     </Grid>
   );
 };
+
 Basic.storyName = "Default";
-
-

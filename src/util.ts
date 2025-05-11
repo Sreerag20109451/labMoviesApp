@@ -1,6 +1,8 @@
 import truncate from "lodash/truncate";
-import { MovieDetailsProps, MovieSortKey } from "./types/interfaces";
+import { BaseMovieProps, MovieDetailsProps, MovieSortKey } from "./types/interfaces";
 
+
+type SortableMovies = BaseMovieProps[] | MovieDetailsProps[];
 export const excerpt = (string: string) => {
     return truncate(string, {
         length: 400, 
@@ -11,7 +13,7 @@ export const excerpt = (string: string) => {
 
 
 
-export const sortMovies = (movies: MovieDetailsProps[], key: MovieSortKey): MovieDetailsProps[] => {
+export const sortMovies = (movies: SortableMovies , key: MovieSortKey): SortableMovies => {
     return [...movies].sort((a, b) => {
       switch (key) {
         case "title":
