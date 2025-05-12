@@ -53,8 +53,8 @@ Frequently commited into github with clear and informative commit history
 
 ##  Story Book Support
 Additional stories have been implemented for 
--Fantasy Movies
+- Fantasy Movies
 - Playlists
 - Actors
-- 
+- Themed PlayList
 
