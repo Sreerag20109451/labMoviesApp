@@ -26,7 +26,7 @@ This application comes with a rich feature list, including
 - Add Reviews
 - Display Reviews
 - Now Playing
-- Actors
+- Actors 
 - Upcoming Movies
 - Review Translation to different languages
 - Favourites
@@ -44,4 +44,16 @@ This application comes with a rich feature list, including
 - The React application has been hosted in CloudFront and S3
 - Sign-in has been integrated with AWS Cognito
 - Review Addition, and reviews displayed are from DynamoDB
-- Addition of Favourites, Deletion of Favourites and Display of Favourites have been integrated with API Gateway, DynamoDB and Lambda.
+- Addition of Favourites, Deletion of Favourites and display of Favourites have been integrated with API Gateway, DynamoDB and Lambda.
+
+##  Git Workflow
+Frequently commited into github with clear and informative commit history
+
+
+##  Story Book Support
+Additional stories have been implemented for 
+-Fantasy Movies
+- Playlists
+- Actors
+- 
+
