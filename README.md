@@ -15,7 +15,8 @@ Apart from the movie and review interfaces, multiple new interfaces are present
 - Now Playing
 - ThemedPlaylist
 - Log IN
-- -Themed Login Form
+- Themed Play List Form
+- Display Fantasy
 
 ##  Features
 
